@@ -10,6 +10,7 @@ class ProyectsController < ApplicationController
   # GET /proyects/1
   # GET /proyects/1.json
   def show
+    @workers = Worker.all
   end
 
   # GET /proyects/new

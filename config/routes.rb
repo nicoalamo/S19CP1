@@ -2,11 +2,11 @@ Rails.application.routes.draw do
   get 'allocations/index'
   get 'allocations/create'
   resources :proyects do
-    resources :allocations, only: :create
+    resources :allocations, only: [:create, :destroy]
   end
 
   resources :workers do
-    resources :allocations, only: :create
+    resources :allocations, only: [:create, :destroy]
   end
 
   resources :allocations, only: :index

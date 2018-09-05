@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_04_225300) do
+ActiveRecord::Schema.define(version: 2018_09_04_230559) do
+
+  create_table "allocations", force: :cascade do |t|
+    t.integer "worker_id"
+    t.integer "proyect_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["proyect_id"], name: "index_allocations_on_proyect_id"
+    t.index ["worker_id"], name: "index_allocations_on_worker_id"
+  end
 
   create_table "proyects", force: :cascade do |t|
     t.string "name"

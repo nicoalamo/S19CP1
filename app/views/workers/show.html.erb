@@ -1,9 +1,55 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @worker.name %>
-</p>
 
-<%= link_to 'Edit', edit_worker_path(@worker) %> |
-<%= link_to 'Back', workers_path %>
+<div class="row">
+  <div class="col-md-6">
+    <p>
+      <strong>Name:</strong>
+      <%= @worker.name %>
+    </p>
+      <%= link_to 'Edit', edit_worker_path(@worker) %> |
+      <%= link_to 'Back', workers_path %>
+      <br>
+
+      <h2> <strong>Proyectos de <%= @worker.name %>:</strong> </h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @worker.proyects.each do |proyect| %>
+              <tr>
+                <td><%= proyect.name %></td>
+                <td><%= link_to 'Quitar', worker_allocation_path(@worker, {proyect_id: proyect.id}), method: :delete %></td>
+              </tr>
+          <% end %>
+        </tbody>
+      </table>
+</div><!--FIN COLUMNA IZQUIERDA-->
+
+  <div class="col-md-6">
+    <h2> Proyectos Sin Asignar a <%= @worker.name %>: </h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @proyects.each do |proyect| %>
+          <% unless @worker.proyects.include?(proyect)  %>
+            <tr>
+              <td><%= proyect.name %></td>
+              <td><%= link_to 'Asignar', worker_allocations_path(@worker, {proyect_id: proyect.id}), method: :post %></td>
+            </tr>
+          <% end  %>
+        <% end %>
+      </tbody>
+    </table>
+  </div><!--FIN COLUMNA DERECHA-->
+
+</div>
